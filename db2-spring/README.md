@@ -80,6 +80,13 @@ db2.password: myPassword
 db2.databaseName=myDatabase
 ~~~
 
+
+~~~
+ * `db2.globalPropertyFile`
+Optional property to specify the absolute path of the property file in which _driver-wide scope_ configuration properties are defined.
+For more information refer [this](https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_r0052075.html)
+~~~
+
 Spring Boot will create `com.ibm.db2.jcc.DB2XADataSource` and `com.ibm.db2.jcc.DB2SimpleDataSource` beans that can be used to interact with your Db2 instance:
 
 `With DB2XADataSource`
@@ -114,6 +121,12 @@ You must provide the following properties to define the connection to your Db2 i
 * `db2.user`
 * `db2.password`
 * `db2.databaseName`
+
+~~~
+ * `db2.globalPropertyFile`
+Optional property to specify the absolute path of the property file in which _driver-wide scope_ configuration properties are defined.
+For more information refer [this](https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_r0052075.html)
+~~~
 
 To enable the creation of the `com.ibm.db2.jcc.DB2XADataSource` bean you must add an `com.ibm.db2.spring.framework.EnableDb2` annotation to your application configuration:
 
