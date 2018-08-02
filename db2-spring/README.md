@@ -73,10 +73,8 @@ To enable auto-configuration you must provide the following properties to define
 
 Optional property:
 * `db2.globalPropertyFile`
-~~~
 This is an Optional property to specify the absolute path of the property file in which _driver-wide scope_ configuration properties are defined.
-For more information refer [this](https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_r0052075.html)`
-~~~
+For more information refer [this](https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_r0052075.html)
 
 For example in an `application.properties` file:
 
@@ -126,10 +124,9 @@ You must provide the following properties to define the connection to your Db2 i
 
 Optional property:
 * `db2.globalPropertyFile`
-~~~
 This is an Optional property to specify the absolute path of the property file in which _driver-wide scope_ configuration properties are defined.
-For more information refer [this](https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_r0052075.html)`
-~~~
+For more information refer [this](https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_r0052075.html)
+
 
 
 To enable the creation of the `com.ibm.db2.jcc.DB2XADataSource` bean you must add an `com.ibm.db2.spring.framework.EnableDb2` annotation to your application configuration:
