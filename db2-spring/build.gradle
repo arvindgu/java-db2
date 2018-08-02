@@ -1,0 +1,110 @@
+/*
+ * Copyright © 2018 IBM Corp. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+
+ 
+apply plugin: 'java'
+apply plugin: 'java-library'
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+  	apply plugin: 'maven'
+  	apply plugin: 'signing'
+  	
+  	group = 'com.db2'
+  	version = new File(rootDir, 'VERSION').text.trim()
+
+    // If the version says "snapshot" anywhere assume it is not a release
+	ext.isReleaseVersion = !version.toUpperCase(Locale.ENGLISH).contains("SNAPSHOT")
+	    	
+	// 1.8 is ok for boot 1.x and 2.x
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+
+    repositories {
+      mavenLocal()
+      mavenCentral()
+    }
+    
+  // Common dependencies
+  ext.compileWithSpringVersion = '5.0.6.RELEASE'
+  ext.compileWithBootVersion = '2.0.2.RELEASE'
+
+  ext.testWithSpringVersion = '4.3.17.RELEASE'
+  ext.testWithBootVersion = '1.5.13.RELEASE'
+  
+  dependencies {
+    // spring
+    compile group: 'org.springframework', name: 'spring-core', version: compileWithSpringVersion
+    compile group: 'org.springframework', name: 'spring-context', version: compileWithSpringVersion
+    compile group: 'org.springframework', name: 'spring-beans', version: compileWithSpringVersion
+      // testing
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: testWithBootVersion    
+    }
+
+  // Include variable debug info in the compiled classes
+  compileJava.options.debugOptions.debugLevel = "source,lines,vars"
+  // Fail on javac warnings
+  compileJava.options.compilerArgs << "-Werror"
+
+  // Always UTF-8
+  tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+  }
+
+  task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    sourceSets.all {
+      into(name + "/java", { from allJava })
+      into(name + "/resources", { from resources })
+    }
+  }
+
+  javadoc {
+    options.encoding 'UTF-8'
+    options.setMemberLevel JavadocMemberLevel.PROTECTED
+    // Add a logging listener to check for javadoc warnings and fail the build if there are any
+    boolean hasJavaDocWarnings = false;
+    doFirst {
+      getLogging().addStandardErrorListener(new StandardOutputListener() {
+        void onOutput(CharSequence output) {
+          if (output =~ "warning:") {
+            hasJavaDocWarnings = true
+          }
+        }
+      })
+    }
+    doLast {
+      if (hasJavaDocWarnings) {
+        throw new GradleException("Build failed due to javadoc warnings.");
+      }
+    }
+  }
+
+  task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+  }
+
+  artifacts {
+    archives sourcesJar, javadocJar
+  }   
+  
+   
+} 
+
+
+
+
