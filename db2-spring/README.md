@@ -73,7 +73,7 @@ To enable auto-configuration you must provide the following properties to define
 
 Optional property:
 ~~~
-* `db2.globalPropertyFile`
+* db2.globalPropertyFile
 This is an Optional property to specify the absolute path of the property file in which _driver-wide scope_ configuration properties are defined.
 For more information refer [this](https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_r0052075.html)`
 ~~~
@@ -126,7 +126,7 @@ You must provide the following properties to define the connection to your Db2 i
 
 Optional property:
 ~~~
-* `db2.globalPropertyFile`
+* db2.globalPropertyFile
 This is an Optional property to specify the absolute path of the property file in which _driver-wide scope_ configuration properties are defined.
 For more information refer [this](https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_r0052075.html)`
 ~~~
