@@ -1,4 +1,4 @@
-# Db2 Spring Library
+# Spring Library to provide Auto Configuration support for Db2 
 
 The is a library to provide Spring developers easy configuration of the [official Db2 library for Java](https://github.com/ibmdb/java-db2/).
 
